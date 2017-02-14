@@ -1,0 +1,33 @@
+{
+  "name": "PhoneGame",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "antd-mobile": "^0.9.13",
+    "apollo-client": "^0.5.18",
+    "graphql": "^0.9.1",
+    "graphql-tag": "^1.1.2",
+    "react": "15.4.1",
+    "react-apollo": "^0.7.1",
+    "react-dom": "^15.4.1",
+    "react-native": "^0.39.2",
+    "react-native-vector-icons": "^3.0.0",
+    "react-redux": "^5.0.1",
+    "react-router": "^4.0.0-alpha.6",
+    "subscriptions-transport-ws": "^0.5.1"
+  },
+  "devDependencies": {
+    "babel-jest": "17.0.2",
+    "babel-plugin-import": "^1.1.0",
+    "babel-preset-react-native": "1.9.0",
+    "jest": "17.0.3",
+    "react-test-renderer": "15.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
