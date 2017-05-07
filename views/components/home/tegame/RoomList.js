@@ -16,6 +16,7 @@ import {
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import {connect} from 'react-redux';
+import {treasureIcon} from '../Icon';
 const MyQuery = gql`query {
                         getToken (id:"1234"){ 
                             token
@@ -54,7 +55,7 @@ let Test = React.createClass({
                                 onPress={this._go_Betting}
                             >
                                 <Image style={{height:240,borderRadius: 7}}
-                                       source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
+                                       source={{uri:treasureIcon}}
                                        resizeMode="stretch"
                                 />
                             </TouchableHighlight>
@@ -65,7 +66,7 @@ let Test = React.createClass({
                                 onPress={e=>{}}
                             >
                                 <Image style={{height:240,borderRadius: 7}}
-                                       source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
+                                       source={{uri:treasureIcon}}
                                        resizeMode="stretch"
                                 />
                             </TouchableHighlight>
@@ -78,7 +79,7 @@ let Test = React.createClass({
                                 onPress={e=>{}}
                             >
                                 <Image style={{height:240,borderRadius: 7}}
-                                       source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
+                                       source={{uri:treasureIcon}}
                                        resizeMode="stretch"
                                 />
                             </TouchableHighlight>
@@ -89,7 +90,7 @@ let Test = React.createClass({
                                 onPress={this.test}
                             >
                                 <Image style={{height:240,borderRadius: 7}}
-                                       source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
+                                       source={{uri:treasureIcon}}
                                        resizeMode="stretch"
                                 />
                             </TouchableHighlight>

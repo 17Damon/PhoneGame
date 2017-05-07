@@ -16,8 +16,7 @@ import {
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import {connect} from 'react-redux';
-import {purseIcon, reCashIcon, recordIcon, settingIcon, aboutIcon} from './Icon';
-import {wsClient} from '../../../data/apolloClient';
+import {purseIcon, reCashIcon, recordIcon, settingIcon, aboutIcon,myAvatarIcon} from './Icon';
 
 const MyQuery = gql`query {
                         getToken (id:"1234"){ 
@@ -30,53 +29,61 @@ const SUBSCRIPTION_QUERY = gql`
                                 } 
                                 `;
 let Test = React.createClass({
-    getInitialState() {
-        return {};
-    },
-    test(){
-        // console.log(this.props.data.getToken.token);
-        console.log(this);
-        console.log(this.props.data.updateQuery);
-        Toast.info('token: ' + this.props.data.getToken.token);
-        this.props.data.subscribeToMore({
-            document: SUBSCRIPTION_QUERY,
-            variables: {},
-            updateQuery: (prev, {subscriptionData}) => {
-                console.log(prev);
-                console.log(subscriptionData);
-                return; // Modify your store and return new state with the new arrived data
-            }
-        });
-        // Toast.info('token: ');
-        // let id = client.networkInterface.subscribe({
-        //     query: SUBSCRIPTION_QUERY,
-        //     variables: {repoName:"test"}
-        // },function (errors,result) {
-        //     console.log(errors);
-        //     console.log(result);
-        // });
-        // let id1 = this.context.client.networkInterface.subscribe({
-        //     query: SUBSCRIPTION_QUERY,
-        //     variables: {repoName:"test1"}
-        // },function (errors,result) {
-        //     console.log(errors);
-        //     console.log(result);
-        // });
-        // client.networkInterface.subscribe({
-        //     query: SUBSCRIPTION_QUERY,
-        //     variables: {
-        //         repoName: 'test',
-        //     },
-        //     context: {},
-        //     callback: (err, data) => console.log(data),
-        // });
-        // console.log(id);
-        // console.log(id1);
-    },
     // ask for `router` from context
     contextTypes: {
         router: React.PropTypes.object,
         client: React.PropTypes.object
+    },
+    getInitialState() {
+        return {};
+    },
+    logout(){
+        globalStorage.remove({
+            key: 'loginState'
+        });
+        globalUser={};
+        this.context.router.transitionTo('/login');
+    },
+    test1(){
+        globalStorage.load({
+            key: 'loginState',
+            autoSync: true,
+            syncInBackground: true,
+            syncParams: {}
+        }).then(ret => {
+            //global.globalUser {accountName,token}
+            console.log("globalStorage.load");
+            console.log(ret);
+            global.globalUser = ret;
+        }).catch(err => {
+            console.log(err);
+            switch (err.name) {
+                case 'NotFoundError':
+                    // TODO;
+                    console.log("没有数据");
+                    // this.setState({
+                    //     loginFlag: false
+                    // });
+                    break;
+                case 'ExpiredError':
+                    // TODO
+                    console.log("数据过期");
+                    // this.setState({
+                    //     loginFlag: false
+                    // });
+                    break;
+            }
+        });
+    },
+    componentWillUnmount(){
+        console.log("Personal_componentWillUnmount");
+
+    },
+    componentWillMount(){
+        console.log("Personal_componentWillMount");
+        if (globalUser.accountName === undefined || globalUser.token === undefined) {
+            this.context.router.transitionTo('/login');
+        }
     },
     render() {
         return (
@@ -87,7 +94,7 @@ let Test = React.createClass({
                                             onPress={e=>{alert('1234')}}>
                             <View style={{flex:3,justifyContent: 'center'}}>
                                 <Image style={{height:70,width:70,borderRadius: 35}}
-                                       source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
+                                       source={{uri:myAvatarIcon}}
                                        resizeMode="stretch"
                                 />
                             </View>
@@ -130,7 +137,7 @@ let Test = React.createClass({
                                 <Text style={{paddingTop:14,paddingLeft:22,height:40}}>账变记录</Text>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight style={{marginTop:10,borderRadius: 7}} onPress={e=>{alert('1234')}}>
+                        <TouchableHighlight style={{marginTop:10,borderRadius: 7}} onPress={e=>{}}>
                             <View
                                 style={{backgroundColor:'white',flex:1,borderBottomColor:'#F5F5F5',borderBottomWidth:1,flexDirection: 'row',borderRadius: 7}}>
                                 <Image
@@ -140,7 +147,7 @@ let Test = React.createClass({
                                 <Text style={{paddingTop:14,paddingLeft:22,height:40}}>设置</Text>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight style={{marginTop:10,borderRadius: 7}} onPress={this.test}>
+                        <TouchableHighlight style={{marginTop:10,borderRadius: 7}} onPress={e=>{this.test1()}}>
                             <View
                                 style={{backgroundColor:'white',flex:1,borderBottomColor:'#F5F5F5',borderBottomWidth:1,flexDirection: 'row',borderRadius: 7}}>
                                 <Image
@@ -148,6 +155,16 @@ let Test = React.createClass({
                                     source={{uri:aboutIcon}} resizeMode="stretch"
                                 />
                                 <Text style={{paddingTop:14,paddingLeft:22,height:40}}>关于</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={{marginTop:10,borderRadius: 7}} onPress={this.logout}>
+                            <View
+                                style={{backgroundColor:'white',flex:1,borderBottomColor:'#F5F5F5',borderBottomWidth:1,flexDirection: 'row',borderRadius: 7}}>
+                                <Image
+                                    style={{height:40,width:40,marginLeft:20,marginTop:2}}
+                                    source={{uri:aboutIcon}} resizeMode="stretch"
+                                />
+                                <Text style={{paddingTop:14,paddingLeft:22,height:40}}>注销</Text>
                             </View>
                         </TouchableHighlight>
                         <View style={{height:188}}/>
@@ -236,6 +253,6 @@ const styles = StyleSheet.create({
 
 let Test1 = graphql(MyQuery)(Test);
 
-let Home = connect()(Test1);
+let Personal = connect()(Test1);
 
-export default Home;
+export default Personal;

@@ -8,33 +8,29 @@ import {
     StyleSheet
 } from 'react-native';
 
-import RoomList from './RoomList';
+import Register from './Register';
 
 
-let RoomNav = React.createClass({
+let RegisterNav = React.createClass({
     // ask for `router` from context
     contextTypes: {
         router: React.PropTypes.object
-    },
-    _go_RankListNav(){
-        // console.log(this.props.data.getToken.token);
-        // console.log(this);
-        // Toast.info('token: ' + this.props.data.getToken.token);
-        // Toast.info('token: ');
-        this.context.router.transitionTo('/bj28');
+    }
+    ,
+    _go_Login(){
+        this.context.router.transitionTo('/login');
     },
     render() {
         return (
             <NavigatorIOS
                 style={styles.navigator}
                 initialRoute={{
-                            component: RoomList,
+                            component: Register,
                             // passProps: props,
-                            title: '房间列表',
+                            title: '会员注册',
                             navigationBarHidden: false,
-                            // rightButtonIcon: this.state.gearIcon,
                             leftButtonTitle: '<back',
-                            onLeftButtonPress:this._go_RankListNav
+                            onLeftButtonPress:this._go_Login
                         }}
             />
         )
@@ -47,4 +43,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RoomNav;
+export default RegisterNav;

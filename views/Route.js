@@ -64,6 +64,8 @@ import Index from './components/Index';
 import BjrankNav from './components/home/tegame/BjrankNav';
 import RoomNav from './components/home/tegame/RoomNav';
 import BettingNav from './components/home/tegame/BettingNav';
+import LoginNav from './components/home/LoginNav';
+import RegisterNav from './components/home/RegisterNav';
 
 // 防止闪退
 // setGlobalHandler((err) => console.warn(err)); // eslint-disable-line
@@ -113,6 +115,8 @@ export default class Route extends Component {
                         <Match pattern="/bj28" component={BjrankNav}/>
                         <Match pattern="/room" component={RoomNav}/>
                         <Match pattern="/betting" component={BettingNav}/>
+                        <Match pattern="/register" component={RegisterNav}/>
+                        <Match pattern="/login" component={LoginNav}/>
                         <Miss component={componentFactory('Nope, nothing here')}/>
                     </View>
                 </Router>

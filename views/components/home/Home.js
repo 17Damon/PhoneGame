@@ -16,34 +16,26 @@ import {
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import {connect} from 'react-redux';
-import {moneyIcon,peopleIcon} from './Icon';
+import {moneyIcon,peopleIcon,treasureIcon} from './Icon';
 const MyQuery = gql`query {
                         getToken (id:"1234"){ 
                             token
                         } 
                     }`;
 let Test = React.createClass({
+    // ask for `router` from context
+    contextTypes: {
+        router: React.PropTypes.object
+    },
     getInitialState() {
         return {};
     },
     test(){
-        // console.log(this.props.data.getToken.token);
-        // console.log(this);
-        // Toast.info('token: ' + this.props.data.getToken.token);
-        // Toast.info('token: ');
-        this.context.router.transitionTo('/bj28');
-    },
-    renderContent(pageIndex, num) {
-        switch (pageIndex) {
-            case 'bj28':
-                this.context.router.transitionTo('/bj28');break;
-            case 'ca28':
-                this.context.router.transitionTo('/ca28');break;
+        if(globalUser.accountName===undefined || globalUser.token === undefined){
+            this.context.router.transitionTo('/login');
+        }else {
+            this.context.router.transitionTo('/bj28');
         }
-    },
-    // ask for `router` from context
-    contextTypes: {
-        router: React.PropTypes.object
     },
     render() {
         return (
@@ -113,7 +105,7 @@ let Test = React.createClass({
                             onPress={e=>{}}
                         >
                             <Image style={{height:289,borderRadius: 7}}
-                                   source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
+                                   source={{uri:treasureIcon}}
                                    resizeMode="stretch"
                             />
                         </TouchableHighlight>
@@ -124,7 +116,7 @@ let Test = React.createClass({
                             onPress={this.test}
                         >
                             <Image style={{height:289,borderRadius: 7}}
-                                   source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
+                                   source={{uri:treasureIcon}}
                                    resizeMode="stretch"
                             />
                         </TouchableHighlight>
@@ -217,25 +209,3 @@ let Test1 = graphql(MyQuery)(Test);
 let Home = connect()(Test1);
 
 export default Home;
-
-
-// <Carousel
-//     style={{padding:20}}
-//     className="my-carousel" autoplay={true} infinite
-//     beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-//     afterChange={(index) => console.log('slide to', index)}
-// >
-//     {['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'AiyWuByWklrrUDlFignR'].map((ii) => (
-//         <Image
-//             key={ii}
-//             style={[styles.context_img,styles.flex_1]}
-//             source={{uri:`https://zos.alipayobjects.com/rmsportal/${ii}.png`}}
-//             resizeMode="contain"
-//         />
-//     ))}
-// </Carousel>
-
-// <Image style={{height:375}}
-//        source={{uri:`https://lh5.googleusercontent.com/-MlnvEdpKY2w/AAAAAAAAAAI/AAAAAAAAAFw/x6wHNLJmtQ0/s0-c-k-no-ns/photo.jpg`}}
-//        resizeMode="contain"
-// />
